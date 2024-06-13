@@ -69,7 +69,7 @@
 </head>
 <body>
     <h1>Do you wanna go out with me?</h1>
-    <img id="kitten" src="C:/Users/Mastour/Downloads/kitten_waiting.gif" alt="Crying Kitten" width="253" height="233">
+    <img id="kitten" src="kitten_waiting.gif" alt="Crying Kitten" width="253" height="233">
 
     <div class="button-container">
         <button id="yes-button">Yes</button>
@@ -83,15 +83,15 @@
         const yesButton = document.getElementById('yes-button');
         const kittenImage = document.getElementById('kitten');
         let gifs = [
-            'C:/Users/Mastour/Downloads/kitten_scooter.gif',
-            'C:/Users/Mastour/Downloads/kitten_love.gif',
-            'C:/Users/Mastour/Downloads/kitten_dance__.gif'
+            'kitten_scooter.gif',
+            'kitten_love.gif',
+            'kitten_dance__.gif'
         ];
         let currentIndex = 0;
         let intervalId;
 
         function relocateNoButton() {
-            kittenImage.src = 'C:/Users/Mastour/Downloads/crying_kitten.gif';
+            kittenImage.src = 'crying_kitten.gif';
             const maxX = window.innerWidth - noButton.clientWidth;
             const maxY = window.innerHeight - noButton.clientHeight;
             const randomX = Math.floor(Math.random() * maxX);
