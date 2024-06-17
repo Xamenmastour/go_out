@@ -115,13 +115,13 @@
             color: white;
         }
         .lover img {
-            max-width: 200px; /* Adjust image size as needed */
-            border-radius: 15px; /* Rounded corners */
+            max-width: 200px;
+            border-radius: 15px;
             cursor: pointer;
-            transition: transform 0.3s ease; /* Smooth transition for scaling */
+            transition: transform 0.3s ease;
         }
         .lover img:hover {
-            transform: scale(1.1); /* Enlarge image on hover */
+            transform: scale(1.1);
         }
         .overlay {
             position: fixed;
@@ -275,7 +275,6 @@
             overlay.classList.add('overlay');
             overlay.onclick = function() {
                 overlay.remove();
-                document.getElementById('lovers-list').style.backgroundColor = 'rgba(0, 0, 0, 0.6)';
             }
             const enlargedImage = new Image();
             enlargedImage.src = img.src;
