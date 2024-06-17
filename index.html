@@ -73,10 +73,12 @@
             position: fixed;
             top: 10px;
             left: 10px;
-            font-size: 12px;
+            width: 10px;
+            height: 10px;
+            background-color: #333;
+            border-radius: 50%;
             cursor: pointer;
             z-index: 10000;
-            color: #333; /* Darker color for contrast */
         }
 
         /* Styles for the lovers list page */
@@ -121,21 +123,40 @@
         .lover img:hover {
             transform: scale(1.1); /* Enlarge image on hover */
         }
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.6);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+        }
+        .enlarged-image {
+            max-width: 90%;
+            max-height: 90%;
+            border-radius: 15px;
+        }
     </style>
 </head>
 <body>
-    <h1>Do you wanna go out with me?</h1>
-    <img id="kitten" src="kitten_waiting.gif" alt="Crying Kitten" width="253" height="233">
+    <div id="proposal-content">
+        <h1>Do you wanna go out with me?</h1>
+        <img id="kitten" src="kitten_waiting.gif" alt="Crying Kitten" width="253" height="233">
 
-    <div class="button-container">
-        <button id="yes-button">Yes</button>
-        <button id="no-button">No</button>
+        <div class="button-container">
+            <button id="yes-button">Yes</button>
+            <button id="no-button">No</button>
+        </div>
+
+        <div class="firework"></div>
     </div>
 
-    <div class="firework"></div>
-
     <!-- Small clickable point in top left corner -->
-    <div id="lovers-list-toggle">&#9679;</div>
+    <div id="lovers-list-toggle"></div>
 
     <!-- Lovers list page content -->
     <div class="lovers-list" id="lovers-list">
@@ -157,6 +178,7 @@
         const noButton = document.getElementById('no-button');
         const yesButton = document.getElementById('yes-button');
         const kittenImage = document.getElementById('kitten');
+        const proposalContent = document.getElementById('proposal-content');
         let gifs = [
             'kitten_scooter.gif',
             'kitten_love.gif',
@@ -252,25 +274,11 @@
             fireworks();
         });
 
-        // Toggle between proposal page and lovers list page
-        const loversListToggle = document.getElementById('lovers-list-toggle');
-        const loversListPage = document.getElementById('lovers-list');
-
-        loversListToggle.addEventListener('click', function() {
-            // Toggle visibility of proposal content and lovers list page
-            if (loversListPage.style.display === 'none') {
-                // Show lovers list page
-                loversListPage.style.display = 'flex'; // Display as flex to center content
-                document.body.style.backgroundColor = 'rgba(0, 0, 0, 0.6)'; // Semi-transparent background
-            } else {
-                // Hide lovers list page
-                loversListPage.style.display = 'none';
-                document.body.style.backgroundColor = '#fff'; // Restore background color
-            }
+        document.getElementById('lovers-list-toggle').addEventListener('click', function() {
+            proposalContent.style.display = 'none'; // Hide the proposal content
+            document.getElementById('lovers-list').style.display = 'flex'; // Show the lovers list
         });
 
-        // JavaScript for
-        // image enlargement
         function toggleImage(img) {
             const loversListPage = document.getElementById('lovers-list');
             const overlay = document.createElement('div');
