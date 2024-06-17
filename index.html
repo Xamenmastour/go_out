@@ -17,6 +17,7 @@
             align-items: center;
             height: 100vh;
             background-color: #fff;
+            transition: background-color 0.3s ease; /* Smooth transition for background color change */
         }
         h1 {
             color: pink;
@@ -67,34 +68,58 @@
             pointer-events: none;
         }
 
+        /* Styles for the lovers list toggle */
         #lovers-list-toggle {
-        position: fixed;
-        top: 10px;
-        left: 10px;
-        font-size: 12px; /* Adjust the font size to make the point smaller */
-        cursor: pointer;
-        z-index: 10000;
-            
+            position: fixed;
+            top: 10px;
+            left: 10px;
+            font-size: 12px;
+            cursor: pointer;
+            z-index: 10000;
+            color: #333; /* Darker color for contrast */
         }
 
-        #lovers-list-container {
-            display: none;
+        /* Styles for the lovers list page */
+        .lovers-list {
+            display: none; /* Initially hidden */
+            font-family: Arial, sans-serif;
             text-align: center;
-            margin-top: 20px;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: rgba(0, 0, 0, 0.6); /* Semi-transparent background */
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 9998; /* Below the small point */
         }
-
+        .lovers-list h1 {
+            color: white;
+            font-family: 'Comic Sans MS', cursive;
+            margin: 20px 0;
+        }
         .lover {
             margin-bottom: 20px;
         }
-
         .lover p {
             font-weight: bold;
-        }
-
-        .lover img {
-            max-width: 100px;
-            border-radius: 50%;
             margin-top: 10px;
+            color: white;
+        }
+        .lover img {
+            max-width: 200px; /* Adjust image size as needed */
+            border-radius: 15px; /* Rounded corners */
+            cursor: pointer;
+            transition: transform 0.3s ease; /* Smooth transition for scaling */
+        }
+        .lover img:hover {
+            transform: scale(1.1); /* Enlarge image on hover */
         }
     </style>
 </head>
@@ -112,16 +137,22 @@
     <!-- Small clickable point in top left corner -->
     <div id="lovers-list-toggle">&#9679;</div>
 
-    <!-- Container for lovers list (initially hidden) -->
-    <div id="lovers-list-container" style="display: none;">
+    <!-- Lovers list page content -->
+    <div class="lovers-list" id="lovers-list">
         <h1>List of Lovers</h1>
+
         <div class="lover">
             <p>Nada Landolsi</p>
-            <img src="nada_landolsi_photo.jpg" alt="Nada Landolsi">
+            <img src="nada_landolsi_photo.jpg" alt="Nada Landolsi" onclick="toggleImage(this)">
         </div>
-        <!-- Add more lovers as needed -->
+
+        <div class="lover">
+            <p>Chayma Mejri</p>
+            <img src="chayma_mejri_photo.jpg" alt="Chayma Mejri" onclick="toggleImage(this)">
+        </div>
     </div>
 
+    <!-- JavaScript for image enlargement and page toggle -->
     <script>
         const noButton = document.getElementById('no-button');
         const yesButton = document.getElementById('yes-button');
@@ -221,17 +252,40 @@
             fireworks();
         });
 
-        // Toggle lovers list visibility
+        // Toggle between proposal page and lovers list page
         const loversListToggle = document.getElementById('lovers-list-toggle');
-        const loversListContainer = document.getElementById('lovers-list-container');
+        const loversListPage = document.getElementById('lovers-list');
 
         loversListToggle.addEventListener('click', function() {
-            if (loversListContainer.style.display === 'none') {
-                loversListContainer.style.display = 'block';
+            // Toggle visibility of proposal content and lovers list page
+            if (loversListPage.style.display === 'none') {
+                // Show lovers list page
+                loversListPage.style.display = 'flex'; // Display as flex to center content
+                document.body.style.backgroundColor = 'rgba(0, 0, 0, 0.6)'; // Semi-transparent background
             } else {
-                loversListContainer.style.display = 'none';
+                // Hide lovers list page
+                loversListPage.style.display = 'none';
+                document.body.style.backgroundColor = '#fff'; // Restore background color
             }
         });
+
+        // JavaScript for
+        // image enlargement
+        function toggleImage(img) {
+            const loversListPage = document.getElementById('lovers-list');
+            const overlay = document.createElement('div');
+            overlay.classList.add('overlay');
+            overlay.onclick = function() {
+                overlay.remove();
+                loversListPage.style.backgroundColor = 'rgba(0, 0, 0, 0.6)';
+            }
+            const enlargedImage = new Image();
+            enlargedImage.src = img.src;
+            enlargedImage.classList.add('enlarged-image');
+            overlay.appendChild(enlargedImage);
+            loversListPage.appendChild(overlay);
+            loversListPage.style.backgroundColor = 'rgba(0, 0, 0, 0.6)';
+        }
     </script>
 </body>
 </html>
