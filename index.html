@@ -284,12 +284,11 @@
             overlay.style.display = 'none';
         }
 
-        noButton.addEventListener('click', relocateNoButton);
+        noButton.addEventListener('mouseover', relocateNoButton);
         yesButton.addEventListener('click', () => {
-            clearInterval(intervalId);
+            document.querySelector('.button-container').style.display = 'none';
             rotateGifs();
-            intervalId = setInterval(rotateGifs, 3000);
-            fireworks();
+            intervalId = setInterval(rotateGifs, 2000);
         });
         loversListToggle.addEventListener('click', toggleLoversList);
         overlay.addEventListener('click', hideEnlargedImage);
@@ -297,7 +296,7 @@
         document.querySelectorAll('.lover img').forEach(img => {
             img.addEventListener('click', () => {
                 if (img.id === 'chayma-img') {
-                    showEnlargedImage('https://photos.fife.usercontent.google.com/pw/AP1GczP0f8Jr54Bbza6gMULhSAK_X4hfWFQTuK3KJJiG0M-u7vvBQfN_RA=w225-h220-no?authuser=0');
+                    showEnlargedImage('https://photos.google.com/photo/AF1QipOSy4RC-4dI2fqEWWg0Zkq6fGxzo9pK2eaVVWI');
                 } else {
                     showEnlargedImage(img.src);
                 }
