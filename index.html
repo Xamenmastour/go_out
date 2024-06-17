@@ -17,7 +17,6 @@
             align-items: center;
             height: 100vh;
             background-color: #fff;
-            transition: background-color 0.3s ease; /* Smooth transition for background color change */
         }
         h1 {
             color: pink;
@@ -68,119 +67,93 @@
             pointer-events: none;
         }
 
-        /* Styles for the lovers list toggle */
+        /* Styles for the lovers list toggle and container */
         #lovers-list-toggle {
             position: fixed;
             top: 10px;
             left: 10px;
-            width: 10px;
-            height: 10px;
-            background-color: #333;
-            border-radius: 50%;
+            font-size: 12px;
             cursor: pointer;
             z-index: 10000;
         }
 
-        /* Styles for the lovers list page */
-        .lovers-list {
-            display: none; /* Initially hidden */
-            font-family: Arial, sans-serif;
+        #lovers-list-container {
+            display: none;
             text-align: center;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background-color: rgba(0, 0, 0, 0.6); /* Semi-transparent background */
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            z-index: 9998; /* Below the small point */
+            margin-top: 20px;
         }
-        .lovers-list h1 {
-            color: white;
-            font-family: 'Comic Sans MS', cursive;
-            margin: 20px 0;
-        }
+
         .lover {
             margin-bottom: 20px;
         }
+
         .lover p {
             font-weight: bold;
-            margin-top: 10px;
-            color: white;
         }
+
         .lover img {
-            max-width: 200px;
-            border-radius: 15px;
+            max-width: 100px;
+            border-radius: 50%;
+            margin-top: 10px;
             cursor: pointer;
             transition: transform 0.3s ease;
         }
-        .lover img:hover {
-            transform: scale(1.1);
+
+        .enlarged-image {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            max-width: 90%;
+            max-height: 90%;
+            border-radius: 15px;
+            z-index: 10001;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
         }
+
         .overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.6);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 9999;
-        }
-        .enlarged-image {
-            max-width: 90%;
-            max-height: 90%;
-            border-radius: 15px;
+            background-color: rgba(0, 0, 0, 0.8);
+            z-index: 10000;
         }
     </style>
 </head>
 <body>
-    <div id="proposal-content">
-        <h1>Do you wanna go out with me?</h1>
-        <img id="kitten" src="kitten_waiting.gif" alt="Crying Kitten" width="253" height="233">
+    <h1>Do you wanna go out with me?</h1>
+    <img id="kitten" src="kitten_waiting.gif" alt="Crying Kitten" width="253" height="233">
 
-        <div class="button-container">
-            <button id="yes-button">Yes</button>
-            <button id="no-button">No</button>
-        </div>
-
-        <div class="firework"></div>
+    <div class="button-container">
+        <button id="yes-button">Yes</button>
+        <button id="no-button">No</button>
     </div>
+
+    <div class="firework"></div>
 
     <!-- Small clickable point in top left corner -->
-    <div id="lovers-list-toggle"></div>
+    <div id="lovers-list-toggle">&#9679;</div>
 
-    <!-- Lovers list page content -->
-    <div class="lovers-list" id="lovers-list">
+    <!-- Container for lovers list (initially hidden) -->
+    <div id="lovers-list-container" style="display: none;">
         <h1>List of Lovers</h1>
-
         <div class="lover">
             <p>Nada Landolsi</p>
-            <img src="https://scontent.ftun9-1.fna.fbcdn.net/v/t1.30497-1/143086968_2856368904622192_1959732218791162458_n.png?_nc_cat=1&ccb=1-7&_nc_sid=5f2048&_nc_ohc=dLKpxagQdsAQ7kNvgEkGgWb&_nc_ht=scontent.ftun9-1.fna&oh=00_AYCXA5uC8DRJ1HkQqoa_7A7MJCLUpB2S-Aj8fp6KAwlTqA&oe=669813B8" alt="Nada Landolsi" onclick="toggleImage(this)">
+            <img src="nada_landolsi_photo.jpg" alt="Nada Landolsi">
         </div>
-
-        <div class="lover">
-            <p>Chayma Mejri</p>
-            <img src="https://scontent.ftun9-1.fna.fbcdn.net/v/t39.30808-6/347391524_854961916212202_124463205590053978_n.jpg?stp=dst-jpg_s552x414&_nc_cat=103&ccb=1-7&_nc_sid=5f2048&_nc_ohc=TBiSd6icEK0Q7kNvgFqJx7W&_nc_ht=scontent.ftun9-1.fna&oh=00_AYDVUzZ75ceKAL71LRoN8L7he81nTqwvOavIHEyLLHU3Cw&oe=66769A0B" alt="Chayma Mejri" onclick="toggleImage(this)">
-        </div>
+        <!-- Add more lovers as needed -->
     </div>
 
-    <!-- JavaScript for image enlargement and page toggle -->
+    <!-- Overlay for enlarged image (initially hidden) -->
+    <div class="overlay" id="overlay" style="display: none;"></div>
+    <img class="enlarged-image" id="enlarged-image" style="display: none;">
+
     <script>
         const noButton = document.getElementById('no-button');
         const yesButton = document.getElementById('yes-button');
         const kittenImage = document.getElementById('kitten');
-        const proposalContent = document.getElementById('proposal-content');
-        const loversListToggle = document.getElementById('lovers-list-toggle');
-        const loversList = document.getElementById('lovers-list');
         let gifs = [
             'kitten_scooter.gif',
             'kitten_love.gif',
@@ -236,25 +209,34 @@
             Particle.prototype.update = function () {
                 this.x += this.vx;
                 this.y += this.vy;
-                this.opacity -= 1 / this.life;
-                this.radius -= 1 / this.life;
-            }
+                this.opacity -= 0.005;
+                this.life--;
+            };
 
-            function drawParticles() {
+            Particle.prototype.draw = function () {
+                ctx.globalAlpha = this.opacity;
+                ctx.fillStyle = this.color;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                ctx.fill();
+            };
+
+            function loop() {
                 ctx.clearRect(0, 0, canvas.width, canvas.height);
-                particles.forEach(particle => {
-                    ctx.beginPath();
-                    ctx.arc(particle.x, particle.y, particle.radius, 0, 2 * Math.PI);
-                    ctx.fillStyle = particle.color;
-                    ctx.fill();
+                particles.forEach((particle, index) => {
                     particle.update();
+                    particle.draw();
+                    if (particle.life <= 0) {
+                        particles.splice(index, 1);
+                    }
                 });
-                particles = particles.filter(particle => particle.opacity > 0);
-                requestAnimationFrame(drawParticles);
+                if (particles.length < 10) {
+                    clearInterval(animation);
+                    fireworksElement.removeChild(canvas);
+                }
             }
 
-            drawParticles();
-            setTimeout(() => canvas.remove(), 1000 / 60);
+            const animation = setInterval(loop, 1000 / 60);
         }
 
         noButton.addEventListener('mouseover', relocateNoButton);
@@ -267,23 +249,39 @@
             fireworks();
         });
 
+        // Toggle lovers list visibility and switch content
+        const loversListToggle = document.getElementById('lovers-list-toggle');
+        const loversListContainer = document.getElementById('lovers-list-container');
+        const originalContent = document.body.innerHTML;
+
         loversListToggle.addEventListener('click', function() {
-            proposalContent.style.display = 'none'; // Hide the proposal content
-            loversList.style.display = 'flex'; // Show the lovers list
+            document.body.innerHTML = '';
+            document.body.appendChild(loversListContainer);
+            loversListContainer.style.display = 'block';
         });
 
-        function toggleImage(img) {
-            const overlay = document.createElement('div');
-            overlay.classList.add('overlay');
-            overlay.onclick = function() {
-                overlay.remove();
+        // Enlarge image functionality
+        const overlay = document.getElementById('overlay');
+        const enlargedImage = document.getElementById('enlarged-image');
+
+        document.body.addEventListener('click', function(event) {
+            if (event.target.tagName === 'IMG' && event.target.closest('.lover')) {
+                enlargedImage.src = event.target.src;
+                enlargedImage.style.display = 'block';
+                overlay.style.display = 'block';
+                overlay.style.opacity = '1'; // Set overlay opacity to 100% (fully opaque)
+                document.body.style.overflow = 'hidden'; // Prevent scrolling on the background content
             }
-            const enlargedImage = new Image();
-            enlargedImage.src = img.src;
-            enlargedImage.classList.add('enlarged-image');
-            overlay.appendChild(enlargedImage);
-            document.body.appendChild(overlay);
-        }
+        });
+
+        // Close enlarged image on overlay click
+        overlay.addEventListener('click', function() {
+            enlargedImage.style.display = 'none';
+            overlay.style.display = 'none';
+            overlay.style.opacity = '0'; // Reset overlay opacity to 0 (fully transparent)
+            document.body.style.overflow = 'auto'; // Restore scrolling to the background content
+        });
+
     </script>
 </body>
 </html>
