@@ -17,7 +17,7 @@
             align-items: center;
             height: 100vh;
             background-color: #fff;
-            transition: background-color 0.3s ease; /* Smooth transition for background color change */
+            transition: background-color 0.3s ease;
         }
         h1 {
             color: pink;
@@ -164,12 +164,12 @@
 
         <div class="lover">
             <p>Nada Landolsi</p>
-            <img src="nada_landolsi_photo.jpg" alt="Nada Landolsi" onclick="toggleImage(this)">
+            <img src="https://scontent.ftun9-1.fna.fbcdn.net/v/t1.30497-1/143086968_2856368904622192_1959732218791162458_n.png?_nc_cat=1&ccb=1-7&_nc_sid=5f2048&_nc_ohc=dLKpxagQdsAQ7kNvgEkGgWb&_nc_ht=scontent.ftun9-1.fna&oh=00_AYCXA5uC8DRJ1HkQqoa_7A7MJCLUpB2S-Aj8fp6KAwlTqA&oe=669813B8" alt="Nada Landolsi" onclick="toggleImage(this)">
         </div>
 
         <div class="lover">
             <p>Chayma Mejri</p>
-            <img src="chayma_mejri_photo.jpg" alt="Chayma Mejri" onclick="toggleImage(this)">
+            <img src="https://scontent.ftun9-1.fna.fbcdn.net/v/t39.30808-6/347391524_854961916212202_124463205590053978_n.jpg?stp=dst-jpg_s552x414&_nc_cat=103&ccb=1-7&_nc_sid=5f2048&_nc_ohc=TBiSd6icEK0Q7kNvgFqJx7W&_nc_ht=scontent.ftun9-1.fna&oh=00_AYDVUzZ75ceKAL71LRoN8L7he81nTqwvOavIHEyLLHU3Cw&oe=66769A0B" alt="Chayma Mejri" onclick="toggleImage(this)">
         </div>
     </div>
 
@@ -234,34 +234,25 @@
             Particle.prototype.update = function () {
                 this.x += this.vx;
                 this.y += this.vy;
-                this.opacity -= 0.005;
-                this.life--;
-            };
-
-            Particle.prototype.draw = function () {
-                ctx.globalAlpha = this.opacity;
-                ctx.fillStyle = this.color;
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-                ctx.fill();
-            };
-
-            function loop() {
-                ctx.clearRect(0, 0, canvas.width, canvas.height);
-                particles.forEach((particle, index) => {
-                    particle.update();
-                    particle.draw();
-                    if (particle.life <= 0) {
-                        particles.splice(index, 1);
-                    }
-                });
-                if (particles.length < 10) {
-                    clearInterval(animation);
-                    fireworksElement.removeChild(canvas);
-                }
+                this.opacity -= 1 / this.life;
+                this.radius -= 1 / this.life;
             }
 
-            const animation = setInterval(loop, 1000 / 60);
+            function drawParticles() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                particles.forEach(particle => {
+                    ctx.beginPath();
+                    ctx.arc(particle.x, particle.y, particle.radius, 0, 2 * Math.PI);
+                    ctx.fillStyle = particle.color;
+                    ctx.fill();
+                    particle.update();
+                });
+                particles = particles.filter(particle => particle.opacity > 0);
+                requestAnimationFrame(drawParticles);
+            }
+
+            drawParticles();
+            setTimeout(() => canvas.remove(), 1000 / 60);
         }
 
         noButton.addEventListener('mouseover', relocateNoButton);
@@ -280,19 +271,17 @@
         });
 
         function toggleImage(img) {
-            const loversListPage = document.getElementById('lovers-list');
             const overlay = document.createElement('div');
             overlay.classList.add('overlay');
             overlay.onclick = function() {
                 overlay.remove();
-                loversListPage.style.backgroundColor = 'rgba(0, 0, 0, 0.6)';
+                document.getElementById('lovers-list').style.backgroundColor = 'rgba(0, 0, 0, 0.6)';
             }
             const enlargedImage = new Image();
             enlargedImage.src = img.src;
             enlargedImage.classList.add('enlarged-image');
             overlay.appendChild(enlargedImage);
-            loversListPage.appendChild(overlay);
-            loversListPage.style.backgroundColor = 'rgba(0, 0, 0, 0.6)';
+            document.body.appendChild(overlay);
         }
     </script>
 </body>
