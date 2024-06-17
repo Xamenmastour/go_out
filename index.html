@@ -17,7 +17,7 @@
             align-items: center;
             height: 100vh;
             background-color: #fff;
-            transition: background-color 0.3s ease;
+            transition: background-color 0.3s ease; /* Smooth transition for background color change */
         }
         h1 {
             color: pink;
@@ -179,6 +179,8 @@
         const yesButton = document.getElementById('yes-button');
         const kittenImage = document.getElementById('kitten');
         const proposalContent = document.getElementById('proposal-content');
+        const loversListToggle = document.getElementById('lovers-list-toggle');
+        const loversList = document.getElementById('lovers-list');
         let gifs = [
             'kitten_scooter.gif',
             'kitten_love.gif',
@@ -265,9 +267,9 @@
             fireworks();
         });
 
-        document.getElementById('lovers-list-toggle').addEventListener('click', function() {
+        loversListToggle.addEventListener('click', function() {
             proposalContent.style.display = 'none'; // Hide the proposal content
-            document.getElementById('lovers-list').style.display = 'flex'; // Show the lovers list
+            loversList.style.display = 'flex'; // Show the lovers list
         });
 
         function toggleImage(img) {
