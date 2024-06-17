@@ -126,6 +126,18 @@
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
         }
 
+        #visitor-count-toggle {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    width: 2px;
+    height: 2px;
+    background-color: black;
+    cursor: pointer;
+    z-index: 10000;
+}
+
+
         .overlay {
             position: fixed;
             top: 0;
@@ -150,6 +162,8 @@
 
     <!-- Small clickable point in top left corner -->
     <div id="lovers-list-toggle"></div>
+    <div id="visitor-count-toggle"></div>
+
 
     <!-- Container for lovers list (initially hidden) -->
     <div id="lovers-list-container">
