@@ -66,6 +66,36 @@
             left: 0;
             pointer-events: none;
         }
+
+        #lovers-list-toggle {
+        position: fixed;
+        top: 10px;
+        left: 10px;
+        font-size: 12px; /* Adjust the font size to make the point smaller */
+        cursor: pointer;
+        z-index: 10000;
+            
+        }
+
+        #lovers-list-container {
+            display: none;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .lover {
+            margin-bottom: 20px;
+        }
+
+        .lover p {
+            font-weight: bold;
+        }
+
+        .lover img {
+            max-width: 100px;
+            border-radius: 50%;
+            margin-top: 10px;
+        }
     </style>
 </head>
 <body>
@@ -78,6 +108,19 @@
     </div>
 
     <div class="firework"></div>
+
+    <!-- Small clickable point in top left corner -->
+    <div id="lovers-list-toggle">&#9679;</div>
+
+    <!-- Container for lovers list (initially hidden) -->
+    <div id="lovers-list-container" style="display: none;">
+        <h1>List of Lovers</h1>
+        <div class="lover">
+            <p>Nada Landolsi</p>
+            <img src="nada_landolsi_photo.jpg" alt="Nada Landolsi">
+        </div>
+        <!-- Add more lovers as needed -->
+    </div>
 
     <script>
         const noButton = document.getElementById('no-button');
@@ -176,6 +219,18 @@
             yesButton.style.display = 'none';
             noButton.style.display = 'none';
             fireworks();
+        });
+
+        // Toggle lovers list visibility
+        const loversListToggle = document.getElementById('lovers-list-toggle');
+        const loversListContainer = document.getElementById('lovers-list-container');
+
+        loversListToggle.addEventListener('click', function() {
+            if (loversListContainer.style.display === 'none') {
+                loversListContainer.style.display = 'block';
+            } else {
+                loversListContainer.style.display = 'none';
+            }
         });
     </script>
 </body>
