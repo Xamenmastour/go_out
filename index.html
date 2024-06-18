@@ -374,40 +374,6 @@
                 }
             });
         });
-        // Function to fetch visitor count from Google Analytics
-function fetchVisitorCount() {
-    // Replace with your actual Google Analytics view ID
-    const VIEW_ID = '383496573'; // Update with your actual view ID
-
-    gtag('config', VIEW_ID);
-
-    gtag('event', 'page_view', {
-        send_to: VIEW_ID,
-        event_category: 'Metrics',
-        event_label: 'Visitor Count'
-    });
-
-    gtag('js', new Date());
-
-    // Using the Reporting API to fetch real-time visitor count
-    gapi.client.analytics.data.realtime.get({
-        'ids': 'ga:' + VIEW_ID,
-        'metrics': 'rt:activeUsers'
-    }).then(function(response) {
-        const activeUsers = response.result.rows[0][0];
-        const visitorCountElement = document.getElementById('visitor-count');
-        visitorCountElement.textContent = activeUsers;
-        document.getElementById('visitor-count-container').style.display = 'block';
-    }).catch(function(error) {
-        console.error('Error fetching visitor count:', error);
-    });
-}
-
-// Event listener for clicking on visitor count toggle
-document.getElementById('visitor-count-toggle').addEventListener('click', function() {
-    fetchVisitorCount();
-});
-
 
     </script>
 </body>
