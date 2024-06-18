@@ -259,6 +259,8 @@
             if (!intervalId) {
                 intervalId = setInterval(rotateGifs, 2000);
             }
+            // Hide the Yes and No buttons
+            document.querySelector('.button-container').style.display = 'none';
         });
         loversListToggle.addEventListener('click', showLoversList);
         overlay.addEventListener('click', hideEnlargedImage);
