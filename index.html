@@ -147,6 +147,46 @@
             background-color: rgba(0, 0, 0, 0.8);
             z-index: 10000;
         }
+            
+            #visitor-count-toggle {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    width: 2px;
+    height: 2px;
+    background-color: black;
+    cursor: pointer;
+    z-index: 10000;
+}
+
+#visitor-count-container {
+    display: none;
+    text-align: center;
+    margin-top: 20px;
+}
+
+#visitor-count-container p {
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+#visitor-count {
+    display: block;
+    font-size: 20px;
+    font-weight: bold;
+    color: black;
+    padding: 10px;
+    background-color: pink;
+    border-radius: 5px;
+    cursor: default;
+    transition: background-color 0.3s ease;
+}
+
+#visitor-count:hover {
+    background-color: #ff69b4;
+}
+
+        
     </style>
 </head>
 <body>
@@ -159,8 +199,12 @@
     </div>
 
     <div id="visitor-count-toggle">
-    <span id="visitor-count">Click to show visitors</span>
+    <div id="visitor-count-container">
+        <p>Number of visitors:</p>
+        <span id="visitor-count">Click to show visitors</span>
+    </div>
 </div>
+
 
 
     <div class="firework"></div>
@@ -344,15 +388,19 @@ function fetchVisitorCount() {
     });
 
     gtag('js', new Date());
+
+    // Replace '100' with actual visitor count fetched from Google Analytics
+    const visitorCount = '100'; // Replace with actual visitor count
+    const visitorCountElement = document.getElementById('visitor-count');
+    visitorCountElement.textContent = visitorCount;
+    document.getElementById('visitor-count-container').style.display = 'block';
 }
 
 // Event listener for clicking on visitor count toggle
 document.getElementById('visitor-count-toggle').addEventListener('click', function() {
     fetchVisitorCount();
-    // Example: Update visitor count display
-    const visitorCountElement = document.getElementById('visitor-count');
-    visitorCountElement.textContent = '100'; // Replace with actual visitor count
 });
+
 
     </script>
 </body>
