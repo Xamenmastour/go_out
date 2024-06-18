@@ -228,7 +228,7 @@
     </div>
 
     <div id="left-button-toggle"></div> <!-- Added left button toggle -->
-<iframe id="music-player" style="display: none;" width="560" height="315" src="https://www.youtube.com/embed/aoM9XUPOvPI?autoplay=1" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+<iframe id="music-player" style="display: none;" width="560" height="315" src="https://www.youtube.com/embed/aoM9XUPOvPI?autoplay=1&loop=1" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 
 
     <!-- Overlay for enlarged image (initially hidden) -->
@@ -378,7 +378,7 @@
                 }
             });
         });
-        const leftButtonToggle = document.getElementById('left-button-toggle');
+const leftButtonToggle = document.getElementById('left-button-toggle');
 const musicPlayer = document.getElementById('music-player');
 
 leftButtonToggle.addEventListener('click', function() {
@@ -387,7 +387,10 @@ leftButtonToggle.addEventListener('click', function() {
     } else {
         musicPlayer.style.display = 'none';
     }
+    // Reload the iframe content to restart the video in an infinite loop
+    musicPlayer.src = musicPlayer.src;
 });
+
 
 
     </script>
