@@ -219,8 +219,10 @@
         </div>
     </div>
 
-   <div id="left-button-toggle"></div> <!-- Added left button toggle -->
-<iframe id="music-player" style="display: none;" width="560" height="315" src="https://www.youtube.com/embed/aoM9XUPOvPI?autoplay=1" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+   <!-- Container for YouTube video (initially hidden) -->
+<div id="youtube-player" style="display: none;">
+    <iframe id="youtube-iframe" width="560" height="315" src="https://www.youtube.com/watch?v=W2Ri3017udg" frameborder="0" allowfullscreen></iframe>
+</div>
 
 
     <!-- Overlay for enlarged image (initially hidden) -->
@@ -370,16 +372,27 @@
                 }
             });
         });
-const leftButtonToggle = document.getElementById('left-button-toggle');
-const musicPlayer = document.getElementById('music-player');
+c// Function to toggle lovers list and YouTube player
+function toggleLoversList() {
+    const loversListContainer = document.getElementById('lovers-list-container');
+    const youtubePlayer = document.getElementById('youtube-player');
 
-leftButtonToggle.addEventListener('click', function() {
-    if (musicPlayer.style.display === 'none') {
-        musicPlayer.style.display = 'block';
+    if (loversListContainer.style.display === 'block') {
+        loversListContainer.style.display = 'none';
+        youtubePlayer.style.display = 'none';
+        // Stop video if it's playing
+        const youtubeIframe = document.getElementById('youtube-iframe');
+        youtubeIframe.contentWindow.postMessage('{"event":"command","func":"' + 'pauseVideo' + '","args":""}', '*');
     } else {
-        musicPlayer.style.display = 'none';
+        loversListContainer.style.display = 'block';
+        youtubePlayer.style.display = 'block';
     }
+}
+// Event listener for lovers list toggle button
+loversListToggle.addEventListener('click', function() {
+    toggleLoversList();
 });
+
 
 
 
