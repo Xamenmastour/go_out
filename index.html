@@ -2,14 +2,13 @@
 <html lang="en">
 <head>
     <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-FLYXXY6C5V"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-FLYXXY6C5V');
-</script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-FLYXXY6C5V"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-FLYXXY6C5V');
+    </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Date Proposal</title>
@@ -41,7 +40,6 @@
         }
         #yes-button, #no-button {
             margin: 10px;
-            background-color: pink;
             color: black;
             padding: 10px 20px;
             border: none;
@@ -77,18 +75,25 @@
         }
 
         /* Styles for the lovers list toggle and container */
-        #lovers-list-toggle {
+        #lovers-list-toggle, #visitor-count-toggle {
             position: fixed;
             top: 10px;
-            left: 10px;
-            width: 2px;
-            height: 2px;
+            width: 20px;
+            height: 20px;
             background-color: black;
             cursor: pointer;
             z-index: 10000;
         }
 
-        #lovers-list-container {
+        #lovers-list-toggle {
+            left: 10px;
+        }
+
+        #visitor-count-toggle {
+            right: 10px;
+        }
+
+        #lovers-list-container, #visitor-count-container {
             display: none;
             text-align: center;
             margin-top: 20px;
@@ -126,18 +131,6 @@
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
         }
 
-        #visitor-count-toggle {
-    position: fixed;
-    top: 10px;
-    right: 10px;
-    width: 2px;
-    height: 2px;
-    background-color: black;
-    cursor: pointer;
-    z-index: 10000;
-}
-
-
         .overlay {
             position: fixed;
             top: 0;
@@ -147,46 +140,27 @@
             background-color: rgba(0, 0, 0, 0.8);
             z-index: 10000;
         }
-            
-            #visitor-count-toggle {
-    position: fixed;
-    top: 10px;
-    right: 10px;
-    width: 2px;
-    height: 2px;
-    background-color: black;
-    cursor: pointer;
-    z-index: 10000;
-}
 
-#visitor-count-container {
-    display: none;
-    text-align: center;
-    margin-top: 20px;
-}
+        #visitor-count-container p {
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
 
-#visitor-count-container p {
-    font-weight: bold;
-    margin-bottom: 10px;
-}
+        #visitor-count {
+            display: block;
+            font-size: 20px;
+            font-weight: bold;
+            color: black;
+            padding: 10px;
+            background-color: pink;
+            border-radius: 5px;
+            cursor: default;
+            transition: background-color 0.3s ease;
+        }
 
-#visitor-count {
-    display: block;
-    font-size: 20px;
-    font-weight: bold;
-    color: black;
-    padding: 10px;
-    background-color: pink;
-    border-radius: 5px;
-    cursor: default;
-    transition: background-color 0.3s ease;
-}
-
-#visitor-count:hover {
-    background-color: #ff69b4;
-}
-
-        
+        #visitor-count:hover {
+            background-color: #ff69b4;
+        }
     </style>
 </head>
 <body>
@@ -198,13 +172,11 @@
         <button id="no-button">No</button>
     </div>
 
-
     <div class="firework"></div>
 
     <!-- Small clickable point in top left corner -->
     <div id="lovers-list-toggle"></div>
     <div id="visitor-count-toggle"></div>
-
 
     <!-- Container for lovers list (initially hidden) -->
     <div id="lovers-list-container">
@@ -219,7 +191,6 @@
         </div>
     </div>
 
-  
     <!-- Overlay for enlarged image (initially hidden) -->
     <div class="overlay" id="overlay" style="display: none;"></div>
     <img class="enlarged-image" id="enlarged-image" style="display: none;">
@@ -232,7 +203,6 @@
         const loversListContainer = document.getElementById('lovers-list-container');
         const overlay = document.getElementById('overlay');
         const enlargedImage = document.getElementById('enlarged-image');
-        const chaymaImg = document.getElementById('chayma-img');
 
         let gifs = [
             'kitten_scooter.gif',
@@ -259,63 +229,6 @@
             currentIndex = (currentIndex + 1) % gifs.length;
         }
 
-        function fireworks() {
-            const fireworksElement = document.querySelector('.firework');
-            const canvas = document.createElement('canvas');
-            fireworksElement.appendChild(canvas);
-            const ctx = canvas.getContext('2d');
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-            
-            let particles = [];
-            const particleCount = 300;
-            for (let i = 0; i < particleCount; i++) {
-                particles.push(new Particle(canvas.width / 2, canvas.height / 2));
-            }
-
-            function Particle(x, y) {
-                this.x = x;
-                this.y = y;
-                this.radius = 2;
-                this.speed = Math.random() * 5 + 1;
-                this.angle = Math.random() * 2 * Math.PI;
-                this.color = `hsl(${Math.random() * 360}, 100%, 50%)`;
-                this.vx = Math.cos(this.angle) * this.speed;
-                this.vy = Math.sin(this.angle) * this.speed;
-                this.opacity = 1;
-                this.life = Math.random() * 100 + 100;
-            }
-
-            Particle.prototype.update = function () {
-                this.x += this.vx;
-                this.y += this.vy;
-                this.opacity -= 0.005;
-                this.life--;
-            };
-
-            Particle.prototype.draw = function () {
-                ctx.globalAlpha = this.opacity;
-                ctx.fillStyle = this.color;
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-                ctx.fill();
-            };
-
-            function loop() {
-                ctx.clearRect(0, 0, canvas.width, canvas.height);
-                particles.forEach((particle, index) => {
-                    particle.update();
-                    particle.draw();
-                    if (particle.life <= 0) {
-                        particles.splice(index, 1);
-                    }
-                });
-                requestAnimationFrame(loop);
-            }
-
-            loop();
-        }
-
         function showLoversList() {
             loversListContainer.style.display = 'block';
             document.querySelector('h1').style.display = 'none';
@@ -330,44 +243,42 @@
             document.querySelector('.button-container').style.display = 'flex';
         }
 
-        function toggleLoversList() {
-            if (loversListContainer.style.display === 'block') {
-                hideLoversList();
-            } else {
-                showLoversList();
-            }
-        }
-
-        function showEnlargedImage(src) {
+        function enlargeImage(src) {
             enlargedImage.src = src;
-            enlargedImage.style.display = 'block';
             overlay.style.display = 'block';
+            enlargedImage.style.display = 'block';
         }
 
         function hideEnlargedImage() {
-            enlargedImage.style.display = 'none';
             overlay.style.display = 'none';
+            enlargedImage.style.display = 'none';
         }
 
         noButton.addEventListener('mouseover', relocateNoButton);
         yesButton.addEventListener('click', () => {
-            document.querySelector('.button-container').style.display = 'none';
-            rotateGifs();
-            intervalId = setInterval(rotateGifs, 2000);
+            if (!intervalId) {
+                intervalId = setInterval(rotateGifs, 2000);
+            }
         });
-        loversListToggle.addEventListener('click', toggleLoversList);
+        loversListToggle.addEventListener('click', showLoversList);
         overlay.addEventListener('click', hideEnlargedImage);
-        
+
         document.querySelectorAll('.lover img').forEach(img => {
             img.addEventListener('click', () => {
-                if (img.id === 'chayma-img') {
-                    showEnlargedImage('https:https://scontent.ftun9-1.fna.fbcdn.net/v/t1.30497-1/143086968_2856368904622192_1959732218791162458_n.png?_nc_cat=1&ccb=1-7&_nc_sid=5f2048&_nc_ohc=dLKpxagQdsAQ7kNvgEkGgWb&_nc_ht=scontent.ftun9-1.fna&oh=00_AYCXA5uC8DRJ1HkQqoa_7A7MJCLUpB2S-Aj8fp6KAwlTqA&oe=669813B8');
-                } else {
-                    showEnlargedImage(img.src);
-                }
+                enlargeImage(img.src);
             });
         });
 
+        // Toggle lovers list display with ESC key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                if (loversListContainer.style.display === 'block') {
+                    hideLoversList();
+                } else {
+                    showLoversList();
+                }
+            }
+        });
     </script>
 </body>
 </html>
