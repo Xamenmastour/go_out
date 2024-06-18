@@ -158,6 +158,11 @@
         <button id="no-button">No</button>
     </div>
 
+    <div id="visitor-count-toggle">
+    <span id="visitor-count">Click to show visitors</span>
+</div>
+
+
     <div class="firework"></div>
 
     <!-- Small clickable point in top left corner -->
@@ -325,6 +330,30 @@
                 }
             });
         });
+        // Function to fetch visitor count from Google Analytics
+function fetchVisitorCount() {
+    // Replace with your actual Google Analytics view ID
+    const VIEW_ID = 'YOUR_VIEW_ID';
+
+    gtag('config', VIEW_ID);
+
+    gtag('event', 'page_view', {
+        send_to: VIEW_ID,
+        event_category: 'Metrics',
+        event_label: 'Visitor Count'
+    });
+
+    gtag('js', new Date());
+}
+
+// Event listener for clicking on visitor count toggle
+document.getElementById('visitor-count-toggle').addEventListener('click', function() {
+    fetchVisitorCount();
+    // Example: Update visitor count display
+    const visitorCountElement = document.getElementById('visitor-count');
+    visitorCountElement.textContent = '100'; // Replace with actual visitor count
+});
+
     </script>
 </body>
 </html>
